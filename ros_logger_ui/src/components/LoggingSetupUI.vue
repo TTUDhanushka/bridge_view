@@ -2,6 +2,7 @@
   <div class="container">
     <h1>Tower 1: data recording</h1>
     <h3>Available rostopics to record: 0</h3>
+    <button @click="startRos">Start ROS</button>
     <button @click="startRecording">Start recording</button>
     <button @click="stopRecording">Stop recording</button>
   </div>
@@ -12,6 +13,23 @@ export default
 {
   name: 'LoggingSetupUI',
   methods: {
+    startRos(){
+        fetch('http://localhost:5000/start_ros', {method: 'POST'})
+    .then(response =>{
+        if(response.ok)
+        {
+            alert('ROS started');
+        }
+        else
+        {
+            alert('Failed to start ROS');
+        }
+    })
+    .catch(error => {
+        console.error('Error starting roscore:', error);
+        alert('Error starting roscore');
+    });
+  },
     startRecording(){
         fetch('http://localhost:5000/start_recording', {method: 'POST'})
     .then(response =>{
